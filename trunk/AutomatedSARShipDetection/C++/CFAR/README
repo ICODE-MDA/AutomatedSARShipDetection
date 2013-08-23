@@ -1,0 +1,37 @@
+Colin Schwegmann,
+CSIR Meraka,
+Remote Sensing Research Unit
+
+This file describes all the information necessary to run the CFAR algorithm within OSSIM on ASAR ENVISAT N1 files in C++. 
+
+Requirements: 
+1. OSSIM. 
+	If you have an 64 bit system then the compiled libraries and h-files included in the 'lib' folder should allow the program to work as is.
+2. OpenCV
+	The makefile includes OpenCV files using pkg-config so if you intend to use the makefile
+	ensure you have pkg-config set up for OpenCV (see http://www.freedesktop.org/wiki/Software/pkg-config/ 
+	for more details about pkg-config)
+3. GDAL (optional). 
+	If you would like to remove land areas (shape files) or georeference the ASAR image use GDAL executables
+	(see the note at the bottom).
+
+
+Running instructions 
+1. To compile the drive file run (using makefile):
+	a) "make" to create the dependancy file (deps.mak). IGNORE ERRORS ON THIS FIRST MAKE. 
+	b) "make" again to create the driver executable.
+2. Running info:
+	There are five main arguments that can be passed to the system
+	a) "-fi" <filenameAndPath> --> the input file name of the ENVISAT N1 file
+	b) "-fo" <filenameAndPath> --> the output file name of the CFAR processed N1 file
+	c) "-g" <size> --> the length of the square guard window. Must be unequal and less than the background window length. Default: 5
+	d) "-b" <size> --> the length of the square background window. Must be unequal and greater than guard window length Default: 7
+	e) "-t" <decimal threshold> --> the threshold value T used in the CFAR algorithm. Default: 2.5
+
+3. To run:
+	a) Using makefile: make ARGS="-fi filepath.N1 -fo filepathResult.tiff -g 9 -b 11 -t 2.1" run
+	b) using executable: ./driver -fi filepath.N1 -fo filepathResult.tiff -g 9 -b 11 -t 2.1
+		
+
+Until N1 georeferencing is fixed (or in the likely case *I* have done something wrong and still need to figure out what) I recommend using the 3 commands to georefernce (gdal_translate), warp (gdal_warp) and remove land areas (gdal_rasterize) from the N1 processed files.
+
