@@ -1,0 +1,1 @@
+/home/student/Programming/SD/data/sardata/ASA_WSM_1PNPDE20120222_075128_000001223112_00035_52204_4260.N1 /home/student/Programming/SD/data/shapefile/Africa.shp results/ -cfar 5 7 2.5
